@@ -1,0 +1,23 @@
+<%- include('components/header'); -%>
+<h3> Welcome To Matrix Master Community </h3>
+<div class="container">
+  <nav id="nav-bar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+   <a class="navbar-brand" href="https://matrixmaster.info" target="_blank">About Matrix Master</a>
+   <a class="navbar-brand a-href" href="/login">Login</a>
+   <a class="navbar-brand" href="/signup">SignUp</a>
+   </nav>
+    <% if (user) { %>
+        <li>Welcome, <%= user.username %></li>
+        <li><a href="/logout">Log out</a></li>
+        <h3>Welcome To Matrix Master Community</h3>
+    <a href="/community" class="btn">Add Your Questions </a>
+        <p>You can now add many questions and add comments and rate other comments.</p>
+      <% } else { %>
+        <hr>
+      <h4>Please Login First To Go Further:-</h4>
+       <a href="/login" class="btn">Join And Add Your Question</a>
+      <% } %>
+      <hr>
+      </div>
+      
+<%- include('components/footer'); -%>

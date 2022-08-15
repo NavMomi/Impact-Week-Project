@@ -1,0 +1,50 @@
+<%- include('components/header'); -%>
+<h1>Login Page</h1>
+<form action="/login" method="post">
+    <hr>
+    <p> If you are a new user please signup <a href="/signup">Click Here For SignUp</a></p>
+    <hr>
+    <div id="error" class="error"></div>
+    <label>E-mail id:</label>
+    <input type="text" class="input-login" name="email" placeholder="User Email" required/>
+    <div class="email error"></div>
+    <label>Password:</label>
+    <input type="password" class="input-login" name="password" placeholder="User Password" required/>
+   <button class="btn btn-primary login-btn">Submit</button>
+  </form>
+<script>
+    const form = document.querySelector('form');
+    const Errorx = document.getElementById('error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // reset errors
+      Errorx.textContent = '';
+
+      // get values
+      const email = form.email.value;
+      const password = form.password.value;
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password }),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          Errorx.textContent = data.errors;
+        }
+        if (data.user) {
+          location.assign('/');
+        }
+
+      }
+      catch (err) {
+        console.log(err);
+      }
+    });
+  </script>
+  <%- include('components/footer'); -%>
