@@ -64,22 +64,12 @@ const addq = async (req, res) => {
             .catch(err => {
                 console.log(err)
             })
-        //Questionmodel.find().sort({ created_at: -1 })
-        //    .then(result => {
-        //        res.render('community', {
-        //            allquestions: result,
-        //            counts: result.length,
-        //            error: ''
-        //        })
-        //    })
-        //    .catch(err => {
-        //        console.log(err)
-        //    })
+        
     }
     else {
         res.render('addquestions', {
             userid: req.query.user_id,
-            formError: 'Please add value title and descreption can not be empty',
+            formError: 'Title and description can not be empty',
             user: user
         })
     }
@@ -126,42 +116,12 @@ const add_question = (req, res) => {
         userid: user._id
     });
 }
-const serch_question = (req, res) => {
-    let user = '';
-    const token = req.cookies.jwt;
-    if (token) {
-        jwt.verify(token, 'Secretkey', async (err, decodedToken) => {
-            if (err) {
-                console.log(err);
-                res.locals.user = null;
-            } else {
-                user = await Usermodel.findById(decodedToken.id);
-            }
-        });
-    }
-   /* const user = res.locals.user;*/
-    let searchtxt  = req.body.Searchtxt;
-    console.log(searchtxt);
-    /*    const txtRegex = new RegExp(searchtxt, 'i')*/
-    Questionmodel.find({ title: { "$regex": searchtxt, "$options": "i" } }).exec()
-        .then(result => {
-            res.render('community', {
-                allquestions: result,
-                counts: result.length - 1,
-                user: user
-            })
-        })
-        .catch(err => {
-            console.log(err)
-        })  
-}
+
 module.exports = {
     viewpage,
     addq,
     editq,
     deleteq,
     add_question,
-    serch_question,
-    filter,
     confirm_edit
 }

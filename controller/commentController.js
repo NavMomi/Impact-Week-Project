@@ -30,19 +30,6 @@ const viewpage = (req, res) => {
 };
 
 const addcomment = async (req, res) => {
-    //let user = '';
-    //const token = req.cookies.jwt;
-    //if (token) {
-    //    jwt.verify(token, 'Secretkey', async (err, decodedToken) => {
-    //        if (err) {
-    //            console.log(err);
-    //            res.locals.user = null;
-    //        } else {
-    //            console.log(" get user");
-    //            user = await Usermodel.findById(decodedToken.id);
-    //        }
-    //    });
-    //}
     let question = await Questionmodel.findById(req.query.questions_id);
     let user = await Usermodel.findById(req.query.user_id);
     
@@ -79,19 +66,10 @@ const deletecomment = async (req, res) => {
             console.log(err)
         })
 }
-const ratecomment = async (req, res) => {
-    let comment = await Commentmodel.findById(req.query.comment_id);
-    let nmbr = req.query.rate;
-    comment.upvote = Number(nmbr);
-    comment.save().then(() => {
-        res.redirect(`/communitydetails/?question_id=${req.query.question_id}`)
-    }).catch(err => {
-        console.log(err)
-    })
-}
+
 module.exports = {
     viewpage,
     addcomment,
     deletecomment,
-    ratecomment
+
 }

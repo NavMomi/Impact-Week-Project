@@ -25,6 +25,6 @@ app.get('/communitydetails', requireAuth);
 app.use(router);
 
 
-app.listen('3000', () => {
-    console.log('server is running on port 3000')
+app.listen('5500', () => {
+    console.log('server is running on port 5500')
 })

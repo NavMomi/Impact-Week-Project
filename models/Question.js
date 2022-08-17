@@ -16,7 +16,7 @@ const questionSchema = mongoose.Schema({
     },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comments' }],
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-    created_at: {
+ created_at: {
         type: Date,
         default: Date.now()
     }
