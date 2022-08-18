@@ -50,7 +50,7 @@ const addq = async (req, res) => {
     else {
         res.render('addquestions', {
             userid: req.query.user_id,
-            formError: 'Title and description can not be empty',
+            formError: 'Title and Description Fields Cannot Be Empty.',
             user: user
         })
     }
@@ -97,7 +97,6 @@ const add_question = (req, res) => {
         userid: user._id
     });
 }
-
 module.exports = {
     viewpage,
     addq,

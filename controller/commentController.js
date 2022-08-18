@@ -2,9 +2,6 @@ const Commentmodel = require("../models/Comment");
 const Usermodel = require("../models/User");
 const Questionmodel = require("../models/Question");
 const jwt = require('jsonwebtoken');
-
-
-
 const viewpage = (req, res) => {
     const user = res.locals.user;
     
@@ -12,12 +9,11 @@ const viewpage = (req, res) => {
     if (user) {
             Questionmodel.findById(req.query.question_id).populate("comments").populate("user")
                 .then(result => {
-
-                    result.rate = result.rate + 1;
-                    result.save();
+                 result.rate = result.rate + 1;
+                 result.save();
                     res.render('communitydetails', {
-                        questions: result,
-                        error: ''
+                    questions: result,
+                    error: ''
                     })
                 })
                 .catch(err => {
@@ -57,8 +53,7 @@ const addcomment = async (req, res) => {
 }
 
 const deletecomment = async (req, res) => {
-
-    Commentmodel.findByIdAndDelete(req.query.comment_id)
+Commentmodel.findByIdAndDelete(req.query.comment_id)
         .then(() => {
             res.redirect(`/communitydetails/?question_id=${req.query.question_id}`)
         })
@@ -71,5 +66,4 @@ module.exports = {
     viewpage,
     addcomment,
     deletecomment,
-
 }

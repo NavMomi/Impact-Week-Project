@@ -7,16 +7,16 @@ const handleErrors = (err) => {
 
     // incorrect email
     if (err.message === 'incorrect email') {
-        errors = 'That email is not registered';
+        errors = ' E-mail is not registered';
     }
     // incorrect password
     if (err.message === 'incorrect password') {
-        errors = 'That password is incorrect';
+        errors = ' Password is incorrect';
     }
    
     // duplicate email error
     if (err.code === 11000) {
-        errors = 'that email is already registered';
+        errors = ' E-mail already registered';
         return errors;
     }
 

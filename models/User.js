@@ -5,17 +5,17 @@ const { isEmail } = require('validator');
 const userSchema = mongoose.Schema({
     username: {
         type: String,
-        required: [true, 'Please enter an usename']
+        required: [true, 'Please enter Username']
     },
     email: {
         type: String,
-        required: [true, 'Please enter an email'],
+        required: [true, 'Please enter E-mail'],
         unique: true,
         validate: [isEmail, 'Please enter a valid email']
     },
     password: {
         type: String,
-        required: [true, 'Please enter an passwoed'],
+        required: [true, 'Please enter Password'],
         minlength: [6, 'Minimum password length is 6 characters']
     },
     created_at: {
@@ -37,9 +37,9 @@ userSchema.statics.login = async function (email, password) {
         if (auth) {
             return user;
         }
-        throw Error('incorrect password');
+        throw Error('Incorrect Password');
     }
-    throw Error('incorrect email');
+    throw Error('Incorrect E-mail');
 };
 
 const User = mongoose.model('user', userSchema);

@@ -1,28 +1,26 @@
 <%- include('components/header'); -%>
- <h2>Welcome To Matrix Master Community</h2>
- <p>There are <%= counts -1 %> Questions
- </p>
-   <a href="/addquestions" class="btn btn-secondary">Add a questions </a>
-                <% if(allquestions.length > 0) { %> 
+  <h2>Welcome To Matrix Master Community</h2>
+  <p>There are <%= counts -1 %> Questions
+    </p>
+    <a href="/addquestions" class="btn btn-secondary">Add Question </a>
+    <% if(allquestions.length> 0) { %>
+      <% allquestions.forEach( questions=> { %>
+        <div>
+          <p><%= questions.title %> </p>
+            <p><%= questions.text %></p>
+            </div>
+            <div>
+              <a href="/communitydetails/?question_id=<%= questions._id%>" > See
+                More</a>
+                <p><span> By:-</span>  <%= questions.user.username %> </p>
 
-  <ul class="questionsbar">
-               <%  allquestions.forEach( questions => { %> 
-                <div>
-                  <p><%= questions.title %> </p>
-                  <p><%= questions.text %></p>
-</div>
-<div>
-<a href="/communitydetails/?question_id=<%= questions._id%>" > See More</a>
-<p><%=questions.created_at %></p>
+                <p><%=questions.created_at %></p>
+                </div>
 
+                <% }) %>
 
-</div>
-                
-                         
-                 <% }) %>
+                  <% } else { %>
+                    <h3 class="err"> There is no Question </h3>
+                    <% } %>
 
-            <% } else { %>
-                <h3 class="err"> No questions found </h3>
-            <% } %>
-
-<%- include('components/footer'); -%>
+                      <%- include('components/footer'); -%>

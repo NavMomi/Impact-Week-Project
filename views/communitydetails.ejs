@@ -1,22 +1,31 @@
 <%- include('components/header'); -%>
-<a href="/community" class="mins float-right btn-normal">Back To Community</a>
-   <div>
-      <p> <%= questions.title %></p>
-      <p> <%= questions.text %></p>
-      <p><%=questions.created_at %></p>
-   </div>
-   <div>
-   <a href="/edit-question/?questions_id=<%= questions._id %>" class="btn btn-primary" alt="">Edit Button</a>
-   <form onsubmit="return confirm('Do You Want To Delete');" action="/delete-question?q_id=<%= questions._id %>" method="POST">
-                <button class="center btn-danger">Delete Button</button>
-               </form>
-            </div>
-              
-      <form action="/add-comment/?questions_id=<%= questions._id %>&user_id=<%= user._id %>" method="POST">
-   <h3>Add Comment : </h2>
-                <input type="text" placeholder="Write a comment" name="text" required  />
-             <button class="btn btn-success">Add Comment</button>
-             </form>
-   
-   
-            <%- include('components/footer'); -%>
+<a href="/community">Back To Community</a>
+<h3><%= questions.title %>  </h3>
+<p><%= questions.text %></p>
+<p><span>By:-</span> <%= questions.user.username %></p>
+<% if(questions.user._id.toString()===user._id.toString()) { %>  
+<a href="/edit-question/?questions_id=<%= questions._id %>" class=" btn btn-primary" alt="">Edit Question</a>
+<form onsubmit="return confirm('Do You Want To Delete ?');" action="/delete-question?q_id=<%= questions._id %>" method="POST">
+    <button class="btn btn-warning">Delete Question </button>
+</form>
+ <% } %>
+<form action="/add-comment/?questions_id=<%= questions._id %>&user_id=<%= user._id %>" method="POST">
+      <h3>Add Comment : </h3>
+      <input type="text" placeholder="Write Comment" name="text" required  />
+      <button class="btn btn-secondary">Add Comment</button>
+</form>
+<% if(questions.comments.length > 0) { %> 
+ <%  questions.comments.forEach( comment => { %> 
+ <p><%= comment.text %></p>
+<% if(user._id.toString()===comment.user_id.toString()) { %> 
+<form action="/delete-comment?comment_id=<%= comment._id %>&question_id=<%= questions._id %>" method="POST">
+   <button class="btn btn-warning">Delete Comment</button>
+      <% } %>
+</form>
+<p><span>By:-</span> <%= questions.user.username %></p>
+ <% }) %>
+  <% } else { %>
+<h3> No comment On this Question </h3>
+<% } %>
+<%- include('components/footer'); -%>
+
