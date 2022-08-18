@@ -1,6 +1,8 @@
 const express = require('express');
 const router = require('./config/route');
 const cookieParser = require('cookie-parser');
+
+
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 const app = express();
@@ -24,7 +26,7 @@ app.get('/addquestions', requireAuth);
 app.get('/communitydetails', requireAuth);
 app.use(router);
 
-
+//port
 app.listen('5500', () => {
     console.log('server is running on port 5500')
 })

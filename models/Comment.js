@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const commentsSchema = mongoose.Schema({
+    upvote: {
+        type: Number,
+        required: false
+    },
     text: {
         type: String,
         required: true

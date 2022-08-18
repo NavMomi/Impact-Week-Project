@@ -21,25 +21,6 @@ const viewpage = (req, res) => {
         console.log(user);
     }
 };
-const filter = (req, res) => {
-    const user = res.locals.user;
-    // check json web token exists & is verified
-    if (user) {
-        Questionmodel.find().populate("comments").populate("user").sort({ created_at: 1 })
-            .then(result => {
-                res.render('community', {
-                    allquestions: result,
-                    counts: result.length +1,
-                    user: user
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    } else {
-        console.log(user);
-    }
-};
 const addq = async (req, res) => {
     let user = await Usermodel.findById(req.query.user_id);
     // check json web token exists & is verified
@@ -69,7 +50,7 @@ const addq = async (req, res) => {
     else {
         res.render('addquestions', {
             userid: req.query.user_id,
-            formError: 'Title and description can not be empty',
+            formError: 'Title and Description Fields Cannot Be Empty.',
             user: user
         })
     }
@@ -116,7 +97,6 @@ const add_question = (req, res) => {
         userid: user._id
     });
 }
-
 module.exports = {
     viewpage,
     addq,
